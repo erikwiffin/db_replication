@@ -3,7 +3,7 @@ import click
 from flask import Blueprint
 
 from cqrs_app.application import app
-from cqrs_app.extensions import arango, db
+from cqrs_app.extensions import arango, db, es
 from cqrs_app.models.relational.user import User
 
 
@@ -14,6 +14,12 @@ BP = Blueprint("cli", __name__)
 def initdb():
     arango.db.collection("User").truncate()
     arango.db.collection("Following").truncate()
+
+    try:
+        es.client.indices.delete("social-network")
+    except:
+        pass
+
     db.drop_all()
     db.create_all()
 
@@ -28,6 +34,7 @@ def initdb():
     user2.follow(user5)
 
     user1.write_post("Test Post", "Lorem ipsum dolor sit amet")
+    user1.write_post("Test Post 2", "consectetur adipiscing elit")
 
     db.session.add(user1)
     db.session.add(user2)

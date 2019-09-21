@@ -4,7 +4,8 @@ from cqrs_app.extensions import arango
 from cqrs_app.models.relational.user import User
 
 
-def my_after_insert_listener(mapper, connection, target: User):
+@event.listens_for(User, "after_insert")
+def user_after_insert(mapper, connection, target: User):
     repr = {
         "_key": target.username,
         "id": target.id,
@@ -13,12 +14,16 @@ def my_after_insert_listener(mapper, connection, target: User):
     }
     arango.db.collection("User").insert(repr)
 
-    for followee in target.following:
-        arango.db.collection("Following").insert(
-            {"_from": f"User/{target.username}", "_to": f"User/{followee.username}"}
-        )
+
+@event.listens_for(User.following, "append")
+def user_following_append(target: User, value: User, initiator):
+    arango.db.collection("Following").insert(
+        {"_from": f"User/{target.username}", "_to": f"User/{value.username}"}
+    )
 
 
-# associate the listener function with SomeClass,
-# to execute during the "before_insert" hook
-event.listen(User, "after_insert", my_after_insert_listener)
+@event.listens_for(User.following, "remove")
+def user_following_remove(target: User, value: User, initiator):
+    arango.db.collection("Following").delete(
+        {"_from": f"User/{target.username}", "_to": f"User/{value.username}"}
+    )
