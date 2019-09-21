@@ -1,0 +1,45 @@
+version: '3'
+services:
+  flask:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: development
+      FLASK_APP: app.py
+      ARANGODB_DATABASE_URI: http://root:docker@arangodb:8529/docker
+      ELASTICSEARCH_DATABASE_URI: http://elasticsearch:9200/
+      SQLALCHEMY_DATABASE_URI: postgresql://docker:docker@postgres/docker
+      SQLALCHEMY_TRACK_MODIFICATIONS: "false"
+    volumes:
+      - .:/usr/app:delegated
+      - /usr/app/.venv
+
+  arangodb:
+    image: arangodb
+    ports:
+      - "8529:8529"
+    environment:
+      ARANGO_ROOT_PASSWORD: docker
+
+  elasticsearch:
+    image: elasticsearch:7.3.2
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: single-node
+
+  kibana:
+    image: kibana:7.3.2
+    ports:
+      - "5601:5601"
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: docker

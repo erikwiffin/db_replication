@@ -1,0 +1,15 @@
+{% extends "base.jinja2" %}
+
+{% block body %}
+<div class="row">
+  <div class="col">
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" />
+      </div>
+    </form>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+{% endblock %}
