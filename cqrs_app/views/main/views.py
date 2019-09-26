@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 from cqrs_app.extensions import arango, db, login_manager
 from cqrs_app.models.relational.user import User
+from cqrs_app.models.graph.user import get_friends_of_friends
 
 BP = Blueprint("main", __name__, template_folder="templates")
 
@@ -11,6 +12,44 @@ BP = Blueprint("main", __name__, template_folder="templates")
 @login_required
 def index():
     return render_template("main/index.jinja2")
+
+
+@BP.route("/user/<username>")
+@login_required
+def user_index(username):
+    user = User.query.filter_by(username=username).one()
+    return render_template("main/user_index.jinja2", user=user)
+
+
+@BP.route("/user/<username>/friends-of-friends")
+@login_required
+def user_friends_of_friends(username):
+    user = User.query.filter_by(username=username).one()
+    fof = get_friends_of_friends(arango.db, username)
+
+    return render_template("main/user_fof.jinja2", user=user, fof=fof)
+
+
+@BP.route("/user/<username>/follow", methods=('POST',))
+def handle_follow(username):
+    pass
+
+
+@BP.route("/user/<username>/unfollow", methods=('POST',))
+def handle_unfollow(username):
+    pass
+
+
+@BP.route("/write-post", methods=('POST',))
+def handle_write_post():
+    title = request.form['title']
+    body = request.form['body']
+
+    current_user.write_post(title, body)
+
+    db.session.commit()
+
+    return redirect(url_for('.index'))
 
 
 @BP.route("/login")

@@ -1,0 +1,26 @@
+{% extends "base.jinja2" %}
+{% import "main/includes/cards.jinja2" as cards %}
+
+{% block body %}
+<div class="row">
+  <div class="col">
+    <div class="jumbotron">
+      <h2>{{ user.username }}</h2>
+      <hr />
+      {% if user in current_user.following %}
+        <button class="btn btn-outline-secondary" type="button">✓ following</button>
+      {% else %}
+        <button class="btn btn-primary" type="button">follow</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    {{ cards.following(user) }}
+  </div>
+  <div class="col">
+    {{ cards.posts(user) }}
+  </div>
+</div>
+{% endblock %}

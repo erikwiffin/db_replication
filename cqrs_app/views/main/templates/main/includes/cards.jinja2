@@ -1,0 +1,26 @@
+{% macro following(user) %}
+  <div class="card">
+    <div class="card-body">
+      <h3>Following</h3>
+      <ul>
+        {% for followee in user.following %}
+          <li><a href="/user/{{ followee.username }}">{{ followee.username }}</a></li>
+        {% endfor %}
+      </ul>
+      <a href="/user/{{ user.username }}/friends-of-friends">Friends of Friends</a>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro posts(user) %}
+  <div class="card">
+    <div class="card-body">
+      <h3>Posts</h3>
+      {% for post in user.posts | sort(attribute='created', reverse=True) %}
+        <h4>{{ post.title }}</h4>
+        <p>{{ post.body }}</p>
+        <p><a href="/post/{{ post.id }}/more-like-this">More like this</a></p>
+      {% endfor %}
+    </div>
+  </div>
+{% endmacro %}

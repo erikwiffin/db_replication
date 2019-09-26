@@ -1,9 +1,33 @@
 {% extends "base.jinja2" %}
+{% import "main/includes/cards.jinja2" as cards %}
 
 {% block body %}
 <div class="row">
   <div class="col">
-    <h2>Hi {{ current_user.username }}!</h2>
+    <div class="jumbotron">
+      <h2>Hi {{ current_user.username }}!</h2>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    {{ cards.following(current_user) }}
+  </div>
+  <div class="col">
+    <h3>Write a Post</h3>
+    <form action="/write-post" method="POST">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" />
+      </div>
+      <div class="form-group">
+        <label for="body">Body</label>
+        <textarea class="form-control" id="body" name="body"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    {{ cards.posts(current_user) }}
   </div>
 </div>
 {% endblock %}
