@@ -8,4 +8,4 @@ from cqrs_app.models.relational.post import Post
 def post_after_insert(mapper, connection, target: Post):
     repr = {"id": target.id, "title": target.title, "body": target.body}
 
-    es.index(index="social-network", doc_type="post", id=target.id, body=repr)
+    es.index(index="post", id=target.id, body=repr)

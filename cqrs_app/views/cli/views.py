@@ -1,4 +1,7 @@
 # pylint: disable=no-member
+from glob import glob
+from pathlib import Path
+
 import click
 from flask import Blueprint
 
@@ -33,8 +36,11 @@ def initdb():
     user2.follow(user4)
     user2.follow(user5)
 
-    user1.write_post("Test Post", "Lorem ipsum dolor sit amet")
-    user1.write_post("Test Post 2", "consectetur adipiscing elit")
+    posts_dir = Path(BP.root_path) / 'posts'
+    for path in posts_dir.glob('*.txt'):
+        with open(path) as fh:
+            for i, line in enumerate(fh):
+                user1.write_post(f'{ Path(path).name } { i }', line)
 
     db.session.add(user1)
     db.session.add(user2)

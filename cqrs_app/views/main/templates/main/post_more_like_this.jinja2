@@ -1,0 +1,24 @@
+{% extends "base.jinja2" %}
+{% import "main/includes/cards.jinja2" as cards %}
+
+{% block body %}
+<div class="row">
+  <div class="col">
+    <div class="jumbotron">
+      <h2>{{ post.title }}</h2>
+      <hr />
+      <p>{{ post.body }}</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {% for hit in hits %}
+      <h3>{{ hit._source.title }} <small class="text-muted">{{ hit._score }}</small></h3>
+      <p>{{ hit._source.body }}</p>
+      <hr />
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+

@@ -20,5 +20,8 @@ class ElasticsearchExtension(object):
     @property
     def get(self):
         return self.client.get
-    
+
+    @property
+    def search(self):
+        return self.client.search
 
