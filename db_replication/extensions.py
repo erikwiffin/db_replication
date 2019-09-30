@@ -1,8 +1,8 @@
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
-from cqrs_app.lib.arango import ArangoExtension
-from cqrs_app.lib.elasticsearch import ElasticsearchExtension
+from db_replication.lib.arango import ArangoExtension
+from db_replication.lib.elasticsearch import ElasticsearchExtension
 
 
 arango = ArangoExtension()

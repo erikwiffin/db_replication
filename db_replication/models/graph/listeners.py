@@ -1,7 +1,7 @@
 from sqlalchemy import event
 
-from cqrs_app.extensions import arango
-from cqrs_app.models.relational.user import User
+from db_replication.extensions import arango
+from db_replication.models.relational.user import User
 
 
 @event.listens_for(User, "after_insert")

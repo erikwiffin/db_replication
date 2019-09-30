@@ -1,7 +1,7 @@
 # pylint: disable=no-member
 from sqlalchemy.sql import func
 
-from cqrs_app.extensions import db
+from db_replication.extensions import db
 
 
 class Post(db.Model):

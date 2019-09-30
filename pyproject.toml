@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cqrs-talk"
+name = "db-replication"
 version = "0.1.0"
 description = ""
 authors = ["Erik Wiffin <erik@devetry.com>"]

@@ -1,6 +1,6 @@
 # pylint: disable=no-member
-from cqrs_app.extensions import db
-from cqrs_app.models.relational.post import Post
+from db_replication.extensions import db
+from db_replication.models.relational.post import Post
 
 follows = db.Table(
     "follows",
@@ -53,7 +53,7 @@ class User(db.Model):
     @property
     def is_active(self):
         return True
-    
+
     @property
     def is_anonymous(self):
         return False

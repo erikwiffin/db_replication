@@ -5,9 +5,9 @@ from pathlib import Path
 import click
 from flask import Blueprint
 
-from cqrs_app.application import app
-from cqrs_app.extensions import arango, db, es
-from cqrs_app.models.relational.user import User
+from db_replication.application import app
+from db_replication.extensions import arango, db, es
+from db_replication.models.relational.user import User
 
 
 BP = Blueprint("cli", __name__)

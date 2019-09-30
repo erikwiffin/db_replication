@@ -1,3 +1,3 @@
-from cqrs_app.application import create_app
+from db_replication.application import create_app
 
 app = create_app()

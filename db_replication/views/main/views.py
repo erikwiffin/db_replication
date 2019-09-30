@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
-from cqrs_app.extensions import arango, db, es, login_manager
-from cqrs_app.models.relational.user import User
-from cqrs_app.models.relational.post import Post
-from cqrs_app.models.graph.user import get_friends_of_friends
-from cqrs_app.models.document.post import get_more_like_this
+from db_replication.extensions import arango, db, es, login_manager
+from db_replication.models.relational.user import User
+from db_replication.models.relational.post import Post
+from db_replication.models.graph.user import get_friends_of_friends
+from db_replication.models.document.post import get_more_like_this
 
 BP = Blueprint("main", __name__, template_folder="templates")
 
