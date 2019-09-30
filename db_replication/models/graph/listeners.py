@@ -24,6 +24,6 @@ def user_following_append(target: User, value: User, initiator):
 
 @event.listens_for(User.following, "remove")
 def user_following_remove(target: User, value: User, initiator):
-    arango.db.collection("Following").delete(
+    arango.db.collection("Following").delete_match(
         {"_from": f"User/{target.username}", "_to": f"User/{value.username}"}
     )

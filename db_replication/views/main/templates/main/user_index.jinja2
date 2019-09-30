@@ -8,9 +8,13 @@
       <h2>{{ user.username }}</h2>
       <hr />
       {% if user in current_user.following %}
-        <button class="btn btn-outline-secondary" type="button">✓ following</button>
+        <form action="/user/{{ user.username }}/unfollow" method="post">
+            <button class="btn btn-outline-secondary" type="submit">✓ following</button>
+        </form>
       {% else %}
-        <button class="btn btn-primary" type="button">follow</button>
+        <form action="/user/{{ user.username }}/follow" method="post">
+            <button class="btn btn-primary" type="submit">follow</button>
+        </form>
       {% endif %}
     </div>
   </div>
