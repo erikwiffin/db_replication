@@ -43,6 +43,9 @@ class User(db.Model):
     def follow(self, user):
         self.following.append(user)
 
+    def unfollow(self, user):
+        self.following.remove(user)
+
     def write_post(self, title, body):
         self.posts.append(Post(title, body))
 

@@ -34,12 +34,22 @@ def user_friends_of_friends(username):
 
 @BP.route("/user/<username>/follow", methods=('POST',))
 def handle_follow(username):
-    pass
+    user = User.query.filter_by(username=username).one()
+    current_user.follow(user)
+
+    db.session.commit()
+
+    return redirect(url_for('.index'))
 
 
 @BP.route("/user/<username>/unfollow", methods=('POST',))
 def handle_unfollow(username):
-    pass
+    user = User.query.filter_by(username=username).one()
+    current_user.unfollow(user)
+
+    db.session.commit()
+
+    return redirect(url_for('.index'))
 
 
 @BP.route("/write-post", methods=('POST',))
