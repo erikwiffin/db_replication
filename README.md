@@ -55,10 +55,10 @@ Login to http://localhost:5000/ with username "alice".
 
 ### ArangoDB
 
-See: [http://localhost:8529/_db/docker/_admin/aardvark/index.html#graph/users-following](http://localhost:8529)
+See: [http://localhost:8529](http://localhost:8529/_db/docker/_admin/aardvark/index.html#graph/users-following)
 
 ### Elasticsearch
 
-See: [http://localhost:5601/app/kibana](http://localhost:5601)
+See: [http://localhost:5601](http://localhost:5601/app/kibana)
 
 You'll need to create an index filter for "post".
